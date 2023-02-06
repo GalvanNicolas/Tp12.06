@@ -1,0 +1,108 @@
+---
+import Hamburguer from "../components/Hamburguer.astro";
+
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props as Props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<!--  es el lenguaje fundamental para crear y estructurar el contenido de las páginas web -->
+	<head
+		><!-- se utiliza para contener información sobre el documento HTML y proporcionar metadatos -->
+		<meta
+			charset="UTF-8"
+		/><!-- se utiliza para proporcionar metadatos sobre el documento HTML-->
+		<meta name="viewport" content="width=device-width" />
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="/favicon.ico"
+		/><!--se utiliza para establecer enlaces o referencias a recursos externos desde un documento HTML-->
+		<meta name="generator" content={Astro.generator} />
+		<title>
+			{title}
+		</title><!--   se utiliza para definir el título de una página web.-->
+	</head>
+	<body
+		><!--  se utiliza para definir el contenido visible de una página web  -->
+		<header class="">
+			<!--  para representar el encabezado o cabecera de una página web o de una sección de contenido -->
+			<nav id="nav" class="fila" aria-label="Top">
+				<!--se utiliza para definir una sección de navegación en una página web  -->
+				<div class="">
+					<!--   se utiliza como un contenedor genérico para agrupar y organizar otros elementos dentro de una página web  -->
+					<a href="/"
+						><!--   se utiliza para crear un enlace o hipervínculo a otra página, recurso o ubicación dentro de la misma página  -->
+						<span class="sr-only">logo</span
+						><!--  se utiliza para aplicar estilos o manipular porciones específicas de texto dentro de un contenido más amplio  -->
+						<!--  comentarios  -->
+						<img
+							src="public/pngtree-round-label-image_2228523.jpg"
+							alt="error"
+							width="40"
+							height="40"
+						/>
+					</a>
+				</div>
+				<div id="burger">
+					<Hamburguer />
+				</div>
+				<div id="links" class="">
+					<a href="/" class="">Home</a>
+					<a href="/about" class="">about</a>
+					<a href="/sobre" class="">sobre mi</a>
+					<a href="/contacto" class="">contacto</a>
+				</div>
+			</nav>
+			<slot
+			/><!--   para crear puntos de inserción dentro de componentes personalizados  -->
+		</header><!--  se utiliza para representar el encabezado de una página web o de una sección de contenido -->
+	</body>
+</html>
+
+<style>
+	#links {
+		display: none; /*se utiliza para ocultar completamente un elemento de una página web*/
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.fila {
+		flex-wrap: wrap;
+		display: flex; /* se utiliza para establecer un contenedor flexible*/
+		justify-content: space-between; /* Permite distribuir el espacio entre las filas*/
+		align-items: center; /* utilizada para alinear y centrar elementos*/
+		padding: 12px 15px; /* establece el área de relleno en los cuatro lados de un elemento a la vez*/
+	}
+
+	@media (min-width: 768px) {
+		#links {
+			display: flex; /*se utiliza para ocultar completamente un elemento de una página web*/
+			gap: 20px; /*para establecer el espacio entre los elementos en una cuadrícula o en un diseño flexible de cajas*/
+		}
+
+		#burger {
+			display: none;
+		}
+	}
+</style>
+
+<script is:inline>
+	const burger = document.getElementById("burger");
+
+	burger.addEventListener("click", function () {
+		const menu = document.getElementById("links");
+		//pregunto si esta oculto
+		if (menu.style.display === "none") {
+			//si esta oculto lo muestro
+			menu.style.display = "flex";
+		} else {
+			//si no esta oculto lo tengo que volver a ocultar
+			menu.style.display = "none";
+		}
+	});
+</script>
